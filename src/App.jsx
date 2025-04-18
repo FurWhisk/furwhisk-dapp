@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import Header from './components/Header';
+import WalletConnect from './components/WalletConnect';
 import ToggleTheme from './components/ToggleTheme';
 import SocialIcons from './components/SocialIcons';
 import FeatureCard from './components/FeatureCard';
@@ -11,10 +13,10 @@ const App = () => {
     <div className={dark ? 'dark' : ''}>
       <main className="min-h-screen bg-white dark:bg-zinc-900 text-black dark:text-white transition-all">
         {/* Header */}
-        <header className="p-4 flex justify-between items-center border-b border-gray-200 dark:border-gray-700">
-          <h1 className="text-2xl font-bold">FurWhisk App</h1>
-          <ToggleTheme dark={dark} setDark={setDark} />
-        </header>
+        <Header dark={dark} setDark={setDark} />
+
+        {/* Wallet Connect */}
+        <WalletConnect />
 
         {/* Hero Section */}
         <section className="relative bg-gradient-to-br from-purple-500 to-pink-500 h-52 rounded-b-3xl flex flex-col justify-end items-center text-white">

@@ -5,6 +5,7 @@ import ToggleTheme from './components/ToggleTheme';
 import SocialIcons from './components/SocialIcons';
 import FeatureCard from './components/FeatureCard';
 import XPBoard from './components/XPBoard';
+import ClaimTasks from './components/ClaimTasks';
 
 const App = () => {
   const [dark, setDark] = useState(false);
@@ -56,6 +57,11 @@ const App = () => {
         <div className="mt-10 px-4">
           <XPBoard />
         </div>
+
+        {/* Claim Tasks */}
+        <div >
+          <ClaimTasks />
+        </div >
       </main>
     </div>
   );

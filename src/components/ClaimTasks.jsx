@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { db } from '../firebase';
+import { doc, setDoc, getDoc } from 'firebase/firestore';
 
 const tasks = [
   { name: 'Visit Website', key: 'website', link: 'https://furwhisk.xyz' },
@@ -8,11 +10,29 @@ const tasks = [
   { name: 'Subscribe YouTube', key: 'youtube', link: 'https://youtube.com/@FurWhisk' },
 ];
 
+// Temp wallet for testing (replace this later with real wallet from WalletConnect)
+const TEMP_WALLET = 'demo_wallet_address_123';
+
 const ClaimTasks = () => {
   const [claimed, setClaimed] = useState({});
 
-  const handleClaim = (key) => {
-    setClaimed((prev) => ({ ...prev, [key]: true }));
+  const handleClaim = async (taskKey) => {
+    const userRef = doc(db, 'xp', TEMP_WALLET);
+    const docSnap = await getDoc(userRef);
+
+    let userData = docSnap.exists() ? docSnap.data() : { xp: 0, tasks: {} };
+
+    if (userData.tasks[taskKey]) {
+      // Already claimed
+      return;
+    }
+
+    // Give 10 XP per task (customizable)
+    userData.xp += 10;
+    userData.tasks[taskKey] = true;
+
+    await setDoc(userRef, userData);
+    setClaimed((prev) => ({ ...prev, [taskKey]: true }));
   };
 
   return (
